@@ -8,8 +8,12 @@ YAMLS := \
 TESTS := $(YAMLS:%=test-%)
 
 WORKTREES := \
-    $(YAMLS) \
+    data \
+    gh-pages \
+    node_modules \
+    template \
     testml \
+    $(YAMLS) \
 
 MATRIX_REPO ?= git@github.com:perlpunk/yaml-test-matrix
 
@@ -28,8 +32,16 @@ status:
 	@echo "=== master"
 	@git status | grep -Ev '(^On branch|up-to-date|nothing to commit)' || true
 
+work: $(WORKTREES)
+
+$(WORKTREES):
+	git branch --track $@ origin/$@ 2>/dev/null || true
+	git worktree add -f $@ $@
+
+testml-lang:
+	git clone --depth=1 --branch=master git@github.com:testml-lang/testml $@
+
 #------------------------------------------------------------------------------
-.PHONY: test
 test: $(TESTS)
 
 test-%: %
@@ -42,9 +54,6 @@ update: testml node_modules
 	git add -A -f testml/
 
 #------------------------------------------------------------------------------
-data:
-	git worktree add -f $@ $@
-
 data-update: data node_modules
 	rm -fr data/*
 	bin/generate-data testml/*.tml
@@ -63,18 +72,6 @@ data-push:
 	    git commit -m "Regenerated data from master $$COMMIT"; \
 	    git push origin data; \
 	}
-
-#------------------------------------------------------------------------------
-work: $(WORKTREES)
-
-$(WORKTREES):
-	git branch --track $@ origin/$@ 2>/dev/null || true
-	git worktree add -f $@ $@
-
-node_modules:
-	mkdir $@
-	npm install coffeescript js-yaml jyj lodash testml-compiler
-	rm -f package*
 
 #------------------------------------------------------------------------------
 matrix:
@@ -108,9 +105,6 @@ matrix-copy: gh-pages
 	      matrix/matrix/html/*.html \
 	      $<
 
-gh-pages:
-	git clone $$(git config remote.origin.url) -b $@ $@
-
 #------------------------------------------------------------------------------
 clean:
 	rm -fr data matrix gh-pages
@@ -120,4 +114,5 @@ clean:
 
 realclean: clean
 	rm -fr $(WORKTREES)
+	rm -fr testml-lang
 	git worktree prune
