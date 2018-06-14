@@ -1,22 +1,45 @@
 export PATH := $(PWD)/node_modules/.bin:$(PATH)
 
+# Each YAML framework has a branch for its tests:
+YAMLS := \
+    yamlpp \
+    yamlpm \
+
+TESTS := $(YAMLS:%=test-%)
+
+WORKTREES := \
+    $(YAMLS) \
+    testml \
+
 MATRIX_REPO ?= git@github.com:perlpunk/yaml-test-matrix
 
-default: help
+#------------------------------------------------------------------------------
+status:
+	@for d in $(WORKTREES); do \
+	    [ -d $$d ] || continue; \
+	    ( \
+		echo "=== $$d"; \
+		cd $$d; \
+		git status | grep -Ev '(^On branch|up-to-date|nothing to commit)'; \
+		git log --graph --decorate --pretty=oneline --abbrev-commit -10 | grep wip; \
+		echo; \
+	    ); \
+	done
+	@echo "=== master"
+	@git status | grep -Ev '(^On branch|up-to-date|nothing to commit)' || true
 
-help:
-	@grep -E '^[-a-zA-Z0-9]+:' Makefile | cut -d: -f1
+#------------------------------------------------------------------------------
+.PHONY: test
+test: $(TESTS)
 
-update: doc node_modules
-	rm -fr test/name/ test/tags/
-	bin/generate-links test/*.tml
-	git add -A -f test/
+test-%: %
+	make -C $< test
 
-.PHONY: doc
-doc: ReadMe.pod
-
-ReadMe.pod: doc/yaml-test-suite.swim
-	swim --to=pod --complete --wrap < $< > $@
+#------------------------------------------------------------------------------
+update: testml node_modules
+	rm -fr testml/name/ testml/tags/
+	bin/generate-links testml/*.tml
+	git add -A -f testml/
 
 #------------------------------------------------------------------------------
 data:
@@ -24,7 +47,7 @@ data:
 
 data-update: data node_modules
 	rm -fr data/*
-	bin/generate-data test/*.tml
+	bin/generate-data testml/*.tml
 
 data-status:
 	@(cd data; git add -Af .; git status --short)
@@ -40,6 +63,13 @@ data-push:
 	    git commit -m "Regenerated data from master $$COMMIT"; \
 	    git push origin data; \
 	}
+
+#------------------------------------------------------------------------------
+work: $(WORKTREES)
+
+$(WORKTREES):
+	git branch --track $@ origin/$@ 2>/dev/null || true
+	git worktree add -f $@ $@
 
 node_modules:
 	mkdir $@
@@ -88,6 +118,6 @@ clean:
 	rm -f package*
 	git worktree prune
 
-.PHONY: test
-test:
-	@echo "We don't run tests here."
+realclean: clean
+	rm -fr $(WORKTREES)
+	git worktree prune
