@@ -1,0 +1,65 @@
+{
+  "_from": "testml-compiler",
+  "_id": "testml-compiler@0.1.4",
+  "_inBundle": false,
+  "_integrity": "sha512-PbHI9xlMXGQpcb1HdDSavNQlrt7/s8j+xC5aUWYfr+jnYxbK79pp2YfE3Ctvfj0KZFnW7+3kze/jRFd4mRMbXQ==",
+  "_location": "/testml-compiler",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "testml-compiler",
+    "name": "testml-compiler",
+    "escapedName": "testml-compiler",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/testml-compiler/-/testml-compiler-0.1.4.tgz",
+  "_shasum": "a34364366943e615a96d900cb5deefb068b99730",
+  "_spec": "testml-compiler",
+  "_where": "/Users/ingy/src/TestML/yaml-test-suite/template",
+  "author": {
+    "name": "Ingy döt Net",
+    "email": "ingy@ingy.net",
+    "url": "http://ingy.net"
+  },
+  "bin": {
+    "testml-compiler": "./bin/testml-compiler"
+  },
+  "bugs": {
+    "url": "https://github.com/testml-lang/testml-compiler/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "coffeescript": ">=2.3.1",
+    "ingy-prelude": ">=0.0.1",
+    "lodash": ">=2.2.2",
+    "pegex": ">=0.1.7"
+  },
+  "deprecated": false,
+  "description": "TestML Compiler CLI",
+  "homepage": "http://testml.org",
+  "keywords": [
+    "testml",
+    "compiler",
+    "testing",
+    "language",
+    "acmeism"
+  ],
+  "license": "MIT",
+  "main": "./lib/testml-compiler/index.js",
+  "name": "testml-compiler",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/testml-lang/testml-compiler.git"
+  },
+  "scripts": {
+    "test": "(source .rc; prove -v test)"
+  },
+  "version": "0.1.4"
+}

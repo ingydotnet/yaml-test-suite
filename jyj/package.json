@@ -1,0 +1,69 @@
+{
+  "_from": "jyj",
+  "_id": "jyj@0.0.1",
+  "_inBundle": false,
+  "_integrity": "sha1-1Dtw9dEa8J6v5pYhiEgyA4qCYPI=",
+  "_location": "/jyj",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "jyj",
+    "name": "jyj",
+    "escapedName": "jyj",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/jyj/-/jyj-0.0.1.tgz",
+  "_shasum": "d43b70f5d11af09eafe69621884832038a8260f2",
+  "_spec": "jyj",
+  "_where": "/Users/ingy/src/TestML/yaml-test-suite/template",
+  "author": {
+    "name": "Ingy döt Net",
+    "email": "ingy@ingy.net",
+    "url": "http://ingy.net"
+  },
+  "bin": {
+    "jyj": "./bin/jyj"
+  },
+  "bugs": {
+    "url": "https://github.com/ingydotnet/jyj-js/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "argparse": ">=0",
+    "js-yaml": ">=0",
+    "lodash": ">=0"
+  },
+  "deprecated": false,
+  "description": "JSON <-> YAML Converter",
+  "devDependencies": {
+    "coffee-script": ">=1.3.3"
+  },
+  "engines": {
+    "node": ">=0.4.0"
+  },
+  "homepage": "http://yaml.org",
+  "keywords": [
+    "yaml",
+    "json",
+    "convert"
+  ],
+  "license": {
+    "type": "MIT"
+  },
+  "name": "jyj",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ingydotnet/jyj-js.git"
+  },
+  "scripts": {
+    "test": "coffee -e '(require \"./test/lib/Test/Harness\").run()' test"
+  },
+  "version": "0.0.1"
+}
