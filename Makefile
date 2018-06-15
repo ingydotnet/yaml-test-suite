@@ -54,7 +54,7 @@ update: testml node_modules
 	git add -A -f testml/
 
 #------------------------------------------------------------------------------
-data-update: data node_modules
+data-update: data testml node_modules
 	rm -fr data/*
 	bin/generate-data testml/*.tml
 

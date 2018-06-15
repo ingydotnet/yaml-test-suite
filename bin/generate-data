@@ -7,7 +7,7 @@ mkdir "data/name"
 mkdir "data/tags"
 
 for input_file in process.argv[2..]
-  id = input_file.replace /^test\/(.*)\.tml$/, '$1'
+  id = input_file.replace /^testml\/(.*)\.tml$/, '$1'
   print "\r#{id}"
   testml = read input_file
   ast = (new TestMLCompiler.Compiler).compile(testml)
