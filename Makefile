@@ -38,7 +38,7 @@ $(TESTML_REPO):
 	make -e -C $(TOP) github/testml
 
 $(TESTML_COMPILER): $(TESTML_REPO)
-	make -C $< compiler)
+	make -C $< compiler
 
 $(NODE_MODULES):
 	make -C .. node_modules
