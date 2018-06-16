@@ -11,7 +11,7 @@ NODE_MODULES := ../node_modules
 # TESTS := $(TESTS:%=$(TESTML)/%.tml)
 TESTS := $(TESTML)/*.tml
 
-export PATH := $(TESTML_REPO)/bin:$(TESTML_COMPILER)/bin:$(PATH)
+export PATH := $(TESTML_REPO)/bin:$(TESTML_COMPILER)/bin:$(NODE_MODULES)/.bin:$(PATH)
 export TESTML_ROOT := $(TESTML_REPO)
 export PERL5LIB := $(YAML)/lib:$(PERL5LIB)
 
