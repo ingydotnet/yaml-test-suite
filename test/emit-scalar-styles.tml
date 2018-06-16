@@ -1,0 +1,38 @@
+#!/usr/bin/env testml
+
+*input % (str)=>
+  str.yaml-emit(*style) == str
+    :"Test '{str}' with style '{*style}'"
+
+=== Test 1
+--- input(<@")
+
+    \s
+    \n
+    a
+    a\n
+     a
+    a\s
+     a\s
+    \na\n
+    \n a\n
+    \na \n
+    \n a \n
+--- style: ':'
+
+=== Test 2
+--- ^input
+--- style: '"'
+
+=== Test 3
+--- ^input
+--- style: "'"
+
+=== Test 4
+--- ^input
+--- style: '|'
+
+=== Test 5
+--- SKIP
+--- ^input
+--- style: '>'

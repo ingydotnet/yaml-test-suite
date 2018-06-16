@@ -1,7 +1,9 @@
 TOP := $(shell cd .. && pwd)
 
 TESTML := $(TOP)/testml
-TESTML_REPO := $(TOP)/testml-lang
+TESTML_REPO := $(TOP)/github/testml
+TESTML_COMPILER := $(TESTML_REPO)/compiler
+BIN := $(TESTML_REPO)/bin/testml
 
 YAML := YAML-PP-p5
 
@@ -9,7 +11,7 @@ YAML := YAML-PP-p5
 # TESTS := $(TESTS:%=$(TESTML)/%.tml)
 TESTS := $(TESTML)/*.tml
 
-export PATH := $(TESTML_REPO)/bin:$(PATH)
+export PATH := $(TESTML_REPO)/bin:$(TESTML_COMPILER)/bin:$(PATH)
 export TESTML_ROOT := $(TESTML_REPO)
 export PERL5LIB := $(YAML)/lib:$(PERL5LIB)
 
@@ -18,8 +20,13 @@ export TESTML_PATH := $(TESTML)
 export TESTML_LIB := test
 
 .PHONY: test
-test: $(TESTML) $(TESTML_REPO) $(YAML)
-	$(TESTML_REPO)/bin/testml -i test/all-tests.tml $(TESTS)
+test: setup
+	$(BIN) -i test/all-tests.tml $(TESTS)
+
+test-emit-scalar-styles: setup
+	$(BIN) test/$(@:test-%=%).tml
+
+setup: $(TESTML) $(TESTML_REPO) $(TESTML_COMPILER) $(YAML)
 
 $(YAML):
 	git clone --depth=1 git@github.com:perlpunk/$@
@@ -28,7 +35,10 @@ $(TESTML):
 	make -C $(TOP) testml
 
 $(TESTML_REPO):
-	make -C $(TOP) testml-lang
+	make -e -C $(TOP) github/testml
+
+$(TESTML_COMPILER): $(TESTML_REPO)
+	(cd $<; make compiler)
 
 clean:
-	rm -fr $(YAML)
+	rm -fr $(YAML) test/.testml
