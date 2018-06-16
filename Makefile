@@ -15,6 +15,8 @@ WORKTREES := \
     testml \
     $(YAMLS) \
 
+TESTML_BRANCH := master
+
 MATRIX_REPO ?= git@github.com:perlpunk/yaml-test-matrix
 
 #------------------------------------------------------------------------------
@@ -38,8 +40,8 @@ $(WORKTREES):
 	git branch --track $@ origin/$@ 2>/dev/null || true
 	git worktree add -f $@ $@
 
-testml-lang:
-	git clone --depth=1 --branch=master git@github.com:testml-lang/testml $@
+github/testml:
+	git clone --branch=$(TESTML_BRANCH) git@github.com:testml-lang/testml $@
 
 #------------------------------------------------------------------------------
 test: $(TESTS)
@@ -114,5 +116,5 @@ clean:
 
 realclean: clean
 	rm -fr $(WORKTREES)
-	rm -fr testml-lang
+	rm -fr github
 	git worktree prune
