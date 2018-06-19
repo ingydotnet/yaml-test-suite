@@ -5,19 +5,19 @@
     :"Test '{str}' with style '{*style}'"
 
 === Test 1
---- input(<@")
+--- input(@")
 
-    \s
-    \n
-    a
-    a\n
-     a
-    a\s
-     a\s
-    \na\n
-    \n a\n
-    \na \n
-    \n a \n
+\s
+\n
+a
+a\n
+ a
+a\s
+ a\s
+\na\n
+\n a\n
+\na \n
+\n a \n
 --- style: ':'
 
 === Test 2
