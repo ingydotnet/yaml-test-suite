@@ -2,7 +2,7 @@
 
 *input % (str)=>
   str.yaml-emit(*style) == str
-    :"Test '{str}' with style '{*style}'"
+    :"+ - Test '{str}' with style '{*style}'"
 
 === Test 1
 --- input(@")
