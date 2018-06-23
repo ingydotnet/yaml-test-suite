@@ -59,6 +59,14 @@ This is a list of all the independent work branches:
   more than one subdir branch, they are made here and then `git subrepo push`ed
   out to the other branches.
 
+* `index/name`
+
+  Symlinks a test's name back to its TestML source file.
+
+* `index/tags`
+
+  Symlinks a test's tags back to its TestML source file.
+
 * `yamlpp`
 
   The test configuration for Perl5's YAML::PP module.
