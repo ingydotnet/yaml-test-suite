@@ -1,0 +1,6 @@
+=meta: 0.0.2
+
+name: yaml-test-suite
+version: 0.0.1
+abstract: Test Suite for the YAML Data Language
+homepage: http://matrix.yaml.io/
